@@ -44,3 +44,18 @@ export type NavConfig = {
   icon?: ReactNode;
   children?: NavConfig[],
 }
+
+export type User = {
+  id: string;
+  userName: string;
+  email: string;
+}
+
+export type AuthState = {
+  isAuthenticated: boolean;
+  user: User | null;
+  token: {
+    accessToken: string;
+    expires: Date;
+  } | null;
+}

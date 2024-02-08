@@ -14,6 +14,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import ThemeContextProvider from './components/theme-settings/ThemeContextProvider';
+import { Provider as ReduxProvider } from 'react-redux';
+import { persistor, store } from './app/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -23,7 +26,11 @@ root.render(
   <HelmetProvider>
     <ThemeContextProvider>
       <BrowserRouter>
-        <App />
+        <ReduxProvider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <App />
+          </PersistGate>
+        </ReduxProvider>
       </BrowserRouter>
     </ThemeContextProvider>
   </HelmetProvider>
