@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { Icon } from '@iconify/react';
+import { Icon } from '@iconify/react/dist/iconify';
 import { Rest } from '../configs/types';
 
 type Props = {
