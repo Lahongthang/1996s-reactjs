@@ -1,12 +1,15 @@
 import { useRoutes, Navigate } from "react-router-dom";
 import ApplicationLayout from "../layouts";
 import { Page404 } from './elements';
+import { AuthGuard } from "../guards";
 
 export default function Router() {
   return useRoutes([
     {
       path: '',
-      element: <ApplicationLayout />,
+      element: <AuthGuard>
+        <ApplicationLayout />
+      </AuthGuard>,
       children: [
         {
           path: '',
