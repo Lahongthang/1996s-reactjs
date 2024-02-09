@@ -4,6 +4,10 @@ import Card from "../../../components/Card";
 import { FormProvider } from "../../../components/RHF";
 import SignInForm from "./SignInForm";
 import { yupResolver } from '@hookform/resolvers/yup';
+import { SignInData } from '../../../configs/types';
+import { dispatch } from '../../../app/store';
+import { authApi } from '../../../app/services/auth/authApi';
+import { enqueueSnackbar } from 'notistack';
 
 const SignInSchema = yup.object().shape({
   userName: yup.string().required(),
@@ -22,10 +26,15 @@ export default function SignInContainer() {
     resolver: yupResolver(SignInSchema),
   })
 
-  const { handleSubmit } = methods;
-
-  const handleSignIn = () => {
-    console.log('sign in');
+  const handleSignIn = async (data: SignInData) => {
+    try {
+      await dispatch(authApi.endpoints.signIn.initiate(data)).unwrap();
+      enqueueSnackbar('Sign in successfully', { variant: 'success' });
+    } catch (error) {
+      enqueueSnackbar('Sign in falied!', { variant: 'error' });
+      console.error(error);
+      throw error;
+    }
   }
 
   return (
@@ -33,7 +42,7 @@ export default function SignInContainer() {
       <FormProvider
         methods={methods}
         schema={SignInSchema}
-        onSubmit={handleSubmit(handleSignIn)}
+        onSubmit={methods.handleSubmit(handleSignIn)}
       >
         <SignInForm />
       </FormProvider>

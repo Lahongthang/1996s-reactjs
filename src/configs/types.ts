@@ -54,13 +54,10 @@ export type User = {
 export type AuthState = {
   isAuthenticated: boolean;
   user: User | null;
-  token: {
-    accessToken: string;
-    expires: Date;
-  } | null;
+  token: StringNullable;
 }
 
-export type SignIn = {
+export type SignInData = {
   userName: string;
   password: string;
 }

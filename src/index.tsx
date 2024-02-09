@@ -17,6 +17,7 @@ import ThemeContextProvider from './components/theme-settings/ThemeContextProvid
 import { Provider as ReduxProvider } from 'react-redux';
 import { persistor, store } from './app/store';
 import { PersistGate } from 'redux-persist/integration/react';
+import { SnackbarProvider } from 'notistack';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -26,11 +27,13 @@ root.render(
   <HelmetProvider>
     <ThemeContextProvider>
       <BrowserRouter>
-        <ReduxProvider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <App />
-          </PersistGate>
-        </ReduxProvider>
+        <SnackbarProvider>
+          <ReduxProvider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+              <App />
+            </PersistGate>
+          </ReduxProvider>
+        </SnackbarProvider>
       </BrowserRouter>
     </ThemeContextProvider>
   </HelmetProvider>

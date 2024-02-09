@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import storage from 'redux-persist/lib/storage';
 import { AuthState } from "../../../configs/types";
 import { persistReducer } from "redux-persist";
+import { authApi } from "../../services/auth/authApi";
+import { userApi } from "../../services/user/userApi";
 
 const persistConfig = {
   key: 'auth',
@@ -35,6 +37,9 @@ export const authSlice = createSlice({
     selectIsAuthenticated: (state) => state.isAuthenticated,
     selectCurrentUser: (state) => state.user,
     selectToken: (state) => state.token,
+  },
+  extraReducers: builder => {
+
   }
 })
 
