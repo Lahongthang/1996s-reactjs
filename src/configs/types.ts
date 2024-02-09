@@ -59,3 +59,8 @@ export type AuthState = {
     expires: Date;
   } | null;
 }
+
+export type SignIn = {
+  userName: string;
+  password: string;
+}

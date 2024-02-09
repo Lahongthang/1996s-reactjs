@@ -3,6 +3,7 @@ import { useSelector } from "../app/store";
 import { selectIsAuthenticated } from "../app/redux/auth/authSlice";
 import { Navigate, useLocation } from "react-router-dom";
 import { StringNullable } from "../configs/types";
+import SignInPage from "../pages/sign-in";
 
 export default function AuthGuard({ children }: { children: ReactNode }) {
   const isAuthenticated = useSelector(selectIsAuthenticated);
@@ -15,7 +16,7 @@ export default function AuthGuard({ children }: { children: ReactNode }) {
     if (pathname !== requestedLocation) {
       setRequestedLocation(pathname);
     }
-    return <>Sign In</>;
+    return <SignInPage />;
   }
 
   if (requestedLocation && pathname !== requestedLocation) {
