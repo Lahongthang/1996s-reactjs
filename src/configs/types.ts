@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 export type StringNullable = string | null;
 export type NumberNullable = number | null;
 export type DateNullable = Date | null;
+export type ElementNullable = Element | null;
 
 // ...rest
 export type Rest = {

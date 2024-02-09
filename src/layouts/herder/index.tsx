@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Stack, Toolbar, Avatar } from '@mui/material';
+import { Stack, Toolbar } from '@mui/material';
 import SvgIconStyle from '../../components/SvgIconStyle';
 import Rotating from '../../components/animate/variants/Rotating';
 import { ThemeContext } from '../../components/theme-settings/ThemeContextProvider';
@@ -7,7 +7,7 @@ import { useResponsive } from '../../hooks';
 import { RootStyle } from './styles';
 import IconButtonAnimate from '../../components/animate/IconButtonAnimate';
 import Logo from '../../components/Logo';
-import Iconify from '../../components/Iconify';
+import AccountPopover from '../../components/AccountPopover';
 
 type Props = {
   onOpenNav?: () => void;
@@ -54,19 +54,7 @@ const Header = ({ onOpenNav }: Props) => {
                 <SvgIconStyle src={`/assets/icons/header/ic_settings.svg`} />
               </IconButtonAnimate>
             </Rotating>
-            <IconButtonAnimate
-              sx={{
-                width: 52,
-                height: 52,
-              }}
-            >
-              <Avatar sx={{ width: '95%', height: '95%' }}>
-                <Iconify
-                  icon='solar:user-bold'
-                  sx={{ color: 'primary.main', width: 24, height: 24 }}
-                />
-              </Avatar>
-            </IconButtonAnimate>
+            <AccountPopover />
           </Stack>
         </Stack>
       </Toolbar>

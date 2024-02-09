@@ -3,7 +3,6 @@ import storage from 'redux-persist/lib/storage';
 import { AuthState } from "../../../configs/types";
 import { persistReducer } from "redux-persist";
 import { authApi } from "../../services/auth/authApi";
-import { userApi } from "../../services/user/userApi";
 
 const persistConfig = {
   key: 'auth',
@@ -39,7 +38,9 @@ export const authSlice = createSlice({
     selectToken: (state) => state.token,
   },
   extraReducers: builder => {
-
+    builder.addMatcher(authApi.endpoints.signOut.matchFulfilled, () => {
+      return initialState;
+    })
   }
 })
 

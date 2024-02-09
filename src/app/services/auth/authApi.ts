@@ -15,6 +15,12 @@ export const authApi = apiService.injectEndpoints({
         dispatch(signIn(data));
         await dispatch(userApi.endpoints.getMe.initiate(undefined, { forceRefetch: true }));
       }
+    }),
+    signOut: builder.mutation({
+      query: () => ({
+        url: 'auth/sign-out',
+        method: 'DELETE',
+      })
     })
   })
 })
