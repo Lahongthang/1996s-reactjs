@@ -62,3 +62,10 @@ export type SignInData = {
   userName: string;
   password: string;
 }
+
+export type SignUpData = {
+  userName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
