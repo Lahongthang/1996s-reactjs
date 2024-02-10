@@ -30,10 +30,9 @@ export default function SignInContainer() {
     try {
       await dispatch(authApi.endpoints.signIn.initiate(data)).unwrap();
       enqueueSnackbar('Sign in successfully', { variant: 'success' });
-    } catch (error) {
-      enqueueSnackbar('Sign in falied!', { variant: 'error' });
+    } catch (error: any) {
+      enqueueSnackbar(error.data.message, { variant: 'error' });
       console.error(error);
-      throw error;
     }
   }
 

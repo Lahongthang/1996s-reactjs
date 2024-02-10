@@ -11,9 +11,13 @@ export const authApi = apiService.injectEndpoints({
         data,
       }),
       async onQueryStarted(reqData, { dispatch, queryFulfilled }) {
-        const { data } = await queryFulfilled;
-        dispatch(signIn(data));
-        await dispatch(userApi.endpoints.getMe.initiate(undefined, { forceRefetch: true }));
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(signIn(data));
+          await dispatch(userApi.endpoints.getMe.initiate(undefined, { forceRefetch: true }));
+        } catch (error) {
+          console.error(error);
+        }
       }
     }),
     signOut: builder.mutation({

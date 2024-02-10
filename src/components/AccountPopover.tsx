@@ -18,10 +18,9 @@ const AccountPopover = () => {
     try {
       await dispatch(authApi.endpoints.signOut.initiate(undefined)).unwrap();
       enqueueSnackbar('Sign out successfully', { variant: 'success' });
-    } catch (error) {
-      enqueueSnackbar('Sign out failed', { variant: 'error' });
+    } catch (error: any) {
+      enqueueSnackbar(error.data.message, { variant: 'error' });
       console.error(error);
-      throw error;
     }
   }
 

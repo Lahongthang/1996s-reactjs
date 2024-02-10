@@ -9,8 +9,12 @@ export const userApi = apiService.injectEndpoints({
         method: 'GET',
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        const { data } = await queryFulfilled;
-        dispatch(setUser(data));
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setUser(data));
+        } catch (error) {
+          console.error(error);
+        }
       }
     })
   })
