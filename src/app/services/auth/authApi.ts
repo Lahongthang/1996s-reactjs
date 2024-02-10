@@ -4,6 +4,13 @@ import { userApi } from "../user/userApi";
 
 export const authApi = apiService.injectEndpoints({
   endpoints: builder => ({
+    signUp: builder.mutation({
+      query: (data) => ({
+        url: 'auth/sign-up',
+        method: 'POST',
+        data,
+      })
+    }),
     signIn: builder.mutation({
       query: (data) => ({
         url: 'auth/sign-in',
