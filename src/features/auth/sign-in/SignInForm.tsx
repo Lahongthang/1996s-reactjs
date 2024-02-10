@@ -1,7 +1,8 @@
-import { Link, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { RHFPasswordField, RHFTextField } from "../../../components/RHF";
 import { SubmitButton } from "../../../components/buttons";
 import { useNavigate } from "react-router";
+import LinkButton from "../../../components/buttons/LinkButton";
 
 const SignInForm = () => {
   const navigate = useNavigate();
@@ -9,13 +10,11 @@ const SignInForm = () => {
     <Stack spacing={2}>
       <Stack direction={'row'}>
         <Typography variant="body2">New user?&nbsp;</Typography>
-        <Link
-          component='button'
+        <LinkButton
           variant="subtitle2"
+          title="Create an account"
           onClick={() => navigate('/sign-up')}
-        >
-          Create an account
-        </Link>
+        />
       </Stack>
 
       <RHFTextField
@@ -28,13 +27,10 @@ const SignInForm = () => {
       />
 
       <Stack direction={'row'} sx={{ justifyContent: 'flex-end' }}>
-        <Link
-          component='button'
-          variant="body2"
+        <LinkButton
+          title="Forgot password?"
           onClick={() => navigate('/reset-password')}
-        >
-          Forgot password?
-        </Link>
+        />
       </Stack>
 
       <SubmitButton title="Sign In" />
