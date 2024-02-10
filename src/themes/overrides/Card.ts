@@ -28,6 +28,9 @@ export default function Card(theme: Theme & Rest) {
       styleOverrides: {
         root: {
           padding: theme.spacing(0),
+          ':last-child': {
+            padding: theme.spacing(0),
+          },
         },
       },
     },

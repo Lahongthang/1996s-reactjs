@@ -5,7 +5,6 @@ import { Rest, Sx } from "../../configs/types";
 type Props = {
   sx?: Sx;
   children: ReactNode;
-  onClick?: () => void;
 } & Rest
 
 const IconButtonAnimate = ({ children, sx, ...props }: Props) => {
