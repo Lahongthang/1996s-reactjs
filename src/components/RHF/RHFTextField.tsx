@@ -1,11 +1,10 @@
 import { Controller, useFormContext } from 'react-hook-form';
-import { TextField } from '@mui/material';
-import { Rest } from '../../configs/types';
+import { TextField, TextFieldProps } from '@mui/material';
 
 type Props = {
   name: string;
   size?: 'small' | 'medium';
-} & Rest
+} & TextFieldProps
 
 const RHFTextField = ({ name, size = 'small', ...props }: Props) => {
   // @ts-expect-error add check required method

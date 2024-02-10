@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import { RHFTextField } from "../../../components/RHF";
+import { RHFPasswordField, RHFTextField } from "../../../components/RHF";
 import { SubmitButton } from "../../../components/buttons";
 
 const SignInForm = () => {
@@ -9,7 +9,7 @@ const SignInForm = () => {
         name="userName"
         label='User name'
       />
-      <RHFTextField
+      <RHFPasswordField
         name="password"
         label='Password'
       />
