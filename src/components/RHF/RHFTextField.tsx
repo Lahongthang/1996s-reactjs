@@ -3,7 +3,6 @@ import { TextField, TextFieldProps } from '@mui/material';
 
 type Props = {
   name: string;
-  size?: 'small' | 'medium';
 } & TextFieldProps
 
 const RHFTextField = ({ name, size = 'small', ...props }: Props) => {

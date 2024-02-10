@@ -1,7 +1,7 @@
 import { varTranEnter, varTranExit } from './transition';
 
 export const varBounce = (props?: any) => {
-	const { durationIn, durationOut, easeIn, easeOut } = props;
+	const { durationIn, durationOut, easeIn, easeOut } = props ?? {};
 
 	return {
 		// IN

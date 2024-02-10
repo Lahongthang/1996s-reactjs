@@ -4,9 +4,16 @@ import { Page404 } from './elements';
 import { AuthGuard } from "../guards";
 import SignInPage from "../pages/sign-in";
 import GuestGuard from "../guards/GuestGuard";
+import SignUpPage from "../pages/sign-up";
 
 export default function Router() {
   return useRoutes([
+    {
+      path: 'sign-up',
+      element: <GuestGuard>
+        <SignUpPage />
+      </GuestGuard>
+    },
     {
       path: 'sign-in',
       element: <GuestGuard>
