@@ -23,6 +23,7 @@ const FormProvider = <T,>({ children, id, methods, schema, onSubmit, ...props }:
         id={id}
         noValidate
         onSubmit={onSubmit}
+        style={{ width: '100%' }}
         {...props}
       >
         {children}
