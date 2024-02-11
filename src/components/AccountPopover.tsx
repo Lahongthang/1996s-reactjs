@@ -50,7 +50,7 @@ const AccountPopover = () => {
         </Stack>
         <Divider sx={{ borderStyle: 'dashed', my: 1 }} />
         <MenuItem>
-          <Iconify icon="mingcute:user-setting-fill" sx={{ mr: 0.5 }} />
+          <Iconify icon="fa6-solid:user-gear" sx={{ mr: 0.5 }} />
           <Typography variant="body2">Personal settings</Typography>
         </MenuItem>
         <MenuItem onClick={handleSignOut}>
