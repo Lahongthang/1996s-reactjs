@@ -1,10 +1,8 @@
 import { useRoutes, Navigate } from "react-router-dom";
 import ApplicationLayout from "../layouts";
-import { Page404 } from './elements';
+import { Page404, ResetPasswordPage, SignInPage, SignUpPage } from './elements';
 import { AuthGuard } from "../guards";
-import SignInPage from "../pages/sign-in";
 import GuestGuard from "../guards/GuestGuard";
-import SignUpPage from "../pages/sign-up";
 
 export default function Router() {
   return useRoutes([
@@ -19,6 +17,12 @@ export default function Router() {
       element: <GuestGuard>
         <SignInPage />
       </GuestGuard>,
+    },
+    {
+      path: 'reset-password',
+      element: <GuestGuard>
+        <ResetPasswordPage />
+      </GuestGuard>
     },
     {
       path: '',
