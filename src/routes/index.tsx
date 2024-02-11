@@ -1,6 +1,6 @@
 import { useRoutes, Navigate } from "react-router-dom";
 import ApplicationLayout from "../layouts";
-import { HomePage, Page404, ResetPasswordPage, SignInPage, SignUpPage } from './elements';
+import { AllProductPage, HomePage, Page404, ResetPasswordPage, SignInPage, SignUpPage } from './elements';
 import { AuthGuard } from "../guards";
 import GuestGuard from "../guards/GuestGuard";
 
@@ -37,8 +37,8 @@ export default function Router() {
         {
           path: 'products',
           children: [
-            { path: '', element: <Navigate to={'list'} /> },
-            { path: 'all', element: <>All products</> },
+            { path: '', element: <Navigate to={'all'} /> },
+            { path: 'all', element: <AllProductPage /> },
             { path: 'best-selling', element: <>Best-selling products</> },
           ],
         },

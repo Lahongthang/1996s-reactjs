@@ -19,5 +19,8 @@ export const SignInPage = Loadable(lazy(() => import('../pages/sign-in')));
 // Reset password
 export const ResetPasswordPage = Loadable(lazy(() => import('../pages/reset-password')));
 
+// All products
+export const AllProductPage = Loadable(lazy(() => import('../pages/product/all')));
+
 // Errors
 export const Page404 = Loadable(lazy(() => import('../pages/errors/Page404')));
