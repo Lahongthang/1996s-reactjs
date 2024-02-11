@@ -1,5 +1,5 @@
 export const varContainer = (props?: any) => {
-  const { staggerIn = 0.05, delayIn = 0.05, staggerOut = 0.05 } = props;
+  const { staggerIn = 0.05, delayIn = 0.05, staggerOut = 0.05 } = props ?? {};
 
   return {
     animate: {

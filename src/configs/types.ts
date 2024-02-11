@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 export type StringNullable = string | null;
 export type NumberNullable = number | null;
 export type DateNullable = Date | null;
+export type ElementNullable = Element | null;
 
 // ...rest
 export type Rest = {
@@ -44,3 +45,29 @@ export type NavConfig = {
   icon?: ReactNode;
   children?: NavConfig[],
 }
+
+export type User = {
+  id: string;
+  userName: string;
+  email: string;
+}
+
+export type AuthState = {
+  isAuthenticated: boolean;
+  user: User | null;
+  token: StringNullable;
+}
+
+export type SignInData = {
+  userName: string;
+  password: string;
+}
+
+export type SignUpData = {
+  userName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export type ResetPasswordStep = 'find-account' | 'verify-otp' | 'change-password';

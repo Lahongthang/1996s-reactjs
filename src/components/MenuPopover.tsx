@@ -1,19 +1,18 @@
 import { ReactNode } from "react";
 import { Popover } from "@mui/material";
-import { Rest, Sx } from "../configs/types";
+import { ElementNullable, Rest, Sx } from "../configs/types";
 
 type Props = {
-  open: boolean;
-  anchorEl: Element;
+  anchorEl: ElementNullable;
   children: ReactNode;
   sx?: Sx;
 } & Rest
 
-const MenuPopover = ({ open, anchorEl, children, sx, ...props }: Props) => {
+const MenuPopover = ({ anchorEl, children, sx, ...props }: Props) => {
   return (
     <Popover
       anchorEl={anchorEl}
-      open={Boolean(open)}
+      open={Boolean(anchorEl)}
       anchorOrigin={{
         vertical: 'bottom',
         horizontal: 'left',
@@ -24,7 +23,7 @@ const MenuPopover = ({ open, anchorEl, children, sx, ...props }: Props) => {
       }}
       sx={{
         mt: 0.25,
-        '& .MuiPaper-root': { width: 100 },
+        '& .MuiPaper-root': { p: 1 },
         ...sx
       }}
       {...props}
