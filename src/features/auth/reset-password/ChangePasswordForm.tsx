@@ -3,7 +3,7 @@ import { RHFPasswordField } from "../../../components/RHF";
 
 const ChangePasswordForm = () => {
   return (
-    <Stack spacing={1}>
+    <Stack spacing={1.5}>
       <Typography variant='body2' color={'text.secondary'}>
         Enter your new password.
       </Typography>

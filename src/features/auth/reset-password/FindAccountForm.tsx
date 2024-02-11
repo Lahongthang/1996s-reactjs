@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { RHFTextField } from '../../../components/RHF';
 import LinkButton from '../../../components/buttons/LinkButton';
 import { useNavigate } from 'react-router';
@@ -6,18 +6,24 @@ import { useNavigate } from 'react-router';
 const FindAccountForm = () => {
   const navigate = useNavigate();
   return (
-    <Stack spacing={1}>
+    <Stack spacing={2}>
       <Stack direction={'row'}>
         <LinkButton
           title='Sign in'
-          variant='subtitle2'
           onClick={() => navigate('/sign-in')}
         />
       </Stack>
-      <RHFTextField
-        name='userName'
-        label='User name or email address'
-      />
+
+      <Stack spacing={1.5}>
+        <Typography variant='body2' color={'text.secondary'}>
+          Enter the email address you used to register your account below.
+        </Typography>
+        <RHFTextField
+          name='email'
+          label='Email address'
+          placeholder='Eg: example@gmail.com'
+        />
+      </Stack>
     </Stack>
   )
 }

@@ -8,13 +8,17 @@ import ChangePasswordForm from "./ChangePasswordForm";
 import { useStep } from "../../../hooks";
 import { SubmitButton } from "../../../components/buttons";
 import StepCard from "./StepCard";
+import { dispatch } from "../../../app/store";
+import { authApi } from "../../../app/services/auth/authApi";
+import { enqueueSnackbar } from "notistack";
+import { useNavigate } from "react-router-dom";
 
 type StepType = 'find-account' | 'verify-otp' | 'change-password';
 
 const STEPS: StepType[] = ['find-account', 'verify-otp', 'change-password'];
 
 const ResetPasswordSchema = (activeStep: StepType) => yup.object().shape({
-  userName: yup.string().required('Please enter your user name or email address'),
+  email: yup.string().email('Please enter a valid email address').required('Please enter your user name or email address'),
   otp: activeStep === "verify-otp" ? yup.string().required('Please enter your otp') : yup.string(),
   password: activeStep === "change-password" ? yup.string().required('Please enter your password') : yup.string(),
   confirmPassword: activeStep === "change-password"
@@ -23,12 +27,14 @@ const ResetPasswordSchema = (activeStep: StepType) => yup.object().shape({
 })
 
 export default function ResetPasswordContainer() {
+  const navigate = useNavigate();
+
   const { activeStep, goToNextStep, goToPrevStep } = useStep(STEPS);
 
   const schema = ResetPasswordSchema(activeStep);
 
   const defaultValues = {
-    userName: '',
+    email: '',
     otp: '',
     password: '',
     confirmPassword: '',
@@ -40,7 +46,7 @@ export default function ResetPasswordContainer() {
     resolver: yupResolver(schema),
   })
 
-  const { handleSubmit, resetField } = methods;
+  const { handleSubmit, resetField, getValues } = methods;
 
   const handleFormSubmit = () => {
     switch (activeStep) {
@@ -58,15 +64,37 @@ export default function ResetPasswordContainer() {
   }
 
   const handleFindAccount = async () => {
-    goToNextStep();
+    const email = getValues('email');
+    try {
+      await dispatch(authApi.endpoints.findUser.initiate({ email })).unwrap();
+      goToNextStep();
+    } catch (error: any) {
+      enqueueSnackbar(error.data.message, { variant: 'error' });
+      console.error(error);
+    }
   }
 
   const handleVerifyOtp = async () => {
-    goToNextStep();
+    const { otp, email } = getValues();
+    try {
+      await dispatch(authApi.endpoints.verifyOtp.initiate({ otp, email })).unwrap();
+      goToNextStep();
+    } catch (error: any) {
+      enqueueSnackbar(error.data.message, { variant: 'error' });
+      console.error(error);
+    }
   }
 
   const handleChangePassword = async () => {
-    console.log('complete!');
+    const { email, password } = getValues();
+    try {
+      await dispatch(authApi.endpoints.changePassword.initiate({ email, password })).unwrap();
+      enqueueSnackbar('Reset password successfully!', { variant: 'success' });
+      navigate('/sign-in');
+    } catch (error: any) {
+      enqueueSnackbar(error.data.message, { variant: 'error' });
+      console.error(error);
+    }
   }
 
   return (
@@ -76,7 +104,10 @@ export default function ResetPasswordContainer() {
       onSubmit={handleSubmit(handleFormSubmit)}
     >
       <StepCard
-        title="Reset password"
+        title={activeStep === 'find-account'
+          ? 'Find your account' : activeStep === 'verify-otp'
+            ? 'Verify Otp' : 'Change password'
+        }
         titleIcon="fluent:key-reset-20-filled"
         canBack={activeStep === "verify-otp"}
         onBack={() => {

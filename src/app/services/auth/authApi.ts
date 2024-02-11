@@ -32,6 +32,35 @@ export const authApi = apiService.injectEndpoints({
         url: 'auth/sign-out',
         method: 'DELETE',
       })
+    }),
+    // Reset password
+    findUser: builder.mutation({
+      query: (data) => ({
+        url: 'auth/find-user',
+        method: 'POST',
+        data,
+      })
+    }),
+    sendOtp: builder.mutation({
+      query: (data) => ({
+        url: 'auth/send-otp',
+        method: 'POST',
+        data,
+      })
+    }),
+    verifyOtp: builder.mutation({
+      query: (data) => ({
+        url: 'auth/verify-otp',
+        method: 'POST',
+        data,
+      })
+    }),
+    changePassword: builder.mutation({
+      query: (data) => ({
+        url: 'auth/change-password',
+        method: 'PATCH',
+        data,
+      })
     })
   })
 })
