@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
 import { FormProvider } from "../../../components/RHF";
-import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup";
 import FindAccountForm from "./FindAccountForm";
 import VerifyOtpForm from "./VerifyOtpForm";
@@ -13,19 +12,10 @@ import { authApi } from "../../../app/services/auth/authApi";
 import { enqueueSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { ResetPasswordStep } from "../../../configs/types";
+import { ResetPasswordSchema } from "../../../utils/validation/schemas/AuthSchema";
 
-type StepType = 'find-account' | 'verify-otp' | 'change-password';
-
-const STEPS: StepType[] = ['find-account', 'verify-otp', 'change-password'];
-
-const ResetPasswordSchema = (activeStep: StepType) => yup.object().shape({
-  email: yup.string().email('Please enter a valid email address').required('Please enter your user name or email address'),
-  otp: activeStep === "verify-otp" ? yup.string().required('Please enter your otp') : yup.string(),
-  password: activeStep === "change-password" ? yup.string().required('Please enter your password') : yup.string(),
-  confirmPassword: activeStep === "change-password"
-    ? yup.string().required('Please enter your confirm password').oneOf([yup.ref('password')], 'Password do not match')
-    : yup.string(),
-})
+const STEPS: ResetPasswordStep[] = ['find-account', 'verify-otp', 'change-password'];
 
 export default function ResetPasswordContainer() {
   const navigate = useNavigate();

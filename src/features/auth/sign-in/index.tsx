@@ -1,4 +1,3 @@
-import * as yup from 'yup';
 import { useForm } from "react-hook-form";
 import Card from "../../../components/Card";
 import { FormProvider } from "../../../components/RHF";
@@ -10,11 +9,7 @@ import { authApi } from '../../../app/services/auth/authApi';
 import { enqueueSnackbar } from 'notistack';
 import { useState } from 'react';
 import { SubmitButton } from '../../../components/buttons';
-
-const SignInSchema = yup.object().shape({
-  userName: yup.string().required(),
-  password: yup.string().required(),
-}).required()
+import { SignInSchema } from '../../../utils/validation/schemas/AuthSchema';
 
 export default function SignInContainer() {
   const [isHandling, setIsHandling] = useState<boolean>(false);

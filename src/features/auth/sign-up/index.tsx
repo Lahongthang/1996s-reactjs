@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import Card from "../../../components/Card";
 import { FormProvider } from "../../../components/RHF";
 import SignUpForm from "./SignUpForm";
-import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SignUpData } from "../../../configs/types";
 import { dispatch } from "../../../app/store";
@@ -11,13 +10,7 @@ import { enqueueSnackbar } from "notistack";
 import { useState } from "react";
 import CompleteCard from "./CompleteCard";
 import { SubmitButton } from "../../../components/buttons";
-
-const SignUpSchema = yup.object().shape({
-  userName: yup.string().required('Please enter your user name'),
-  email: yup.string().required('Please enter your email').email('Please enter a valid email'),
-  password: yup.string().required('Please enter your password'),
-  confirmPassword: yup.string().required('Please enter your confirm password').oneOf([yup.ref('password')], 'Password do not match'),
-})
+import { SignUpSchema } from "../../../utils/validation/schemas/AuthSchema";
 
 export default function SignUpContainer() {
   const [isSuccess, setIsSuccess] = useState<boolean>(false);

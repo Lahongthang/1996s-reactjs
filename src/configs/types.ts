@@ -69,3 +69,5 @@ export type SignUpData = {
   password: string;
   confirmPassword: string;
 }
+
+export type ResetPasswordStep = 'find-account' | 'verify-otp' | 'change-password';
