@@ -28,19 +28,14 @@ export const NAV_CONFIGS: NavConfig[] = [
     icon: ICONS.products,
     children: [
       {
-        name: 'list',
-        label: 'List',
-        path: PATH_APP.products.list,
+        name: 'all',
+        label: 'All products',
+        path: PATH_APP.products.all,
       },
       {
-        name: 'create',
-        label: 'Create',
-        path: PATH_APP.products.create,
-      },
-      {
-        name: 'edit',
-        label: 'Edit',
-        path: PATH_APP.products.edit,
+        name: 'best-selling',
+        label: 'Best-selling products',
+        path: PATH_APP.products.bestSelling,
       },
     ],
   },

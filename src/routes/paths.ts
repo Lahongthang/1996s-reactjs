@@ -12,12 +12,11 @@ export const PATH_AUTH = {
 
 export const PATH_APP = {
   root: ROOTS_APP,
-  home: path(ROOTS_APP, '/home'),
+  home: path(ROOTS_APP, ''),
   products: {
     index: path(ROOTS_APP, '/products'),
-    list: path(ROOTS_APP, '/products/list'),
-    create: path(ROOTS_APP, '/products/create'),
-    edit: path(ROOTS_APP, '/products/edit'),
+    all: path(ROOTS_APP, '/products/all'),
+    bestSelling: path(ROOTS_APP, '/products/best-selling'),
   },
   settings: path(ROOTS_APP, '/personal-settings'),
 }
