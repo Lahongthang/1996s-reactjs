@@ -8,6 +8,8 @@ import { SignInData } from '../../../configs/types';
 import { dispatch } from '../../../app/store';
 import { authApi } from '../../../app/services/auth/authApi';
 import { enqueueSnackbar } from 'notistack';
+import { useState } from 'react';
+import { SubmitButton } from '../../../components/buttons';
 
 const SignInSchema = yup.object().shape({
   userName: yup.string().required(),
@@ -15,6 +17,8 @@ const SignInSchema = yup.object().shape({
 }).required()
 
 export default function SignInContainer() {
+  const [isHandling, setIsHandling] = useState<boolean>(false);
+
   const defaultValues = {
     userName: '',
     password: '',
@@ -27,24 +31,36 @@ export default function SignInContainer() {
   })
 
   const handleSignIn = async (data: SignInData) => {
+    setIsHandling(true);
     try {
       await dispatch(authApi.endpoints.signIn.initiate(data)).unwrap();
       enqueueSnackbar('Sign in successfully', { variant: 'success' });
     } catch (error: any) {
       enqueueSnackbar(error.data.message, { variant: 'error' });
       console.error(error);
+    } finally {
+      setIsHandling(false);
     }
   }
 
   return (
-    <Card title="Sign In" titleIcon="mdi:sign-in">
-      <FormProvider
-        methods={methods}
-        schema={SignInSchema}
-        onSubmit={methods.handleSubmit(handleSignIn)}
+    <FormProvider
+      methods={methods}
+      schema={SignInSchema}
+      onSubmit={methods.handleSubmit(handleSignIn)}
+    >
+      <Card
+        title="Sign In"
+        titleIcon="mdi:sign-in"
+        actions={() => <SubmitButton
+          fullWidth
+          title="Sign In"
+          loading={isHandling}
+          loadingIndicator={'Signing In...'}
+        />}
       >
         <SignInForm />
-      </FormProvider>
-    </Card>
+      </Card>
+    </FormProvider>
   )
 }

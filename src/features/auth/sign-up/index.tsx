@@ -10,6 +10,7 @@ import { authApi } from "../../../app/services/auth/authApi";
 import { enqueueSnackbar } from "notistack";
 import { useState } from "react";
 import CompleteCard from "./CompleteCard";
+import { SubmitButton } from "../../../components/buttons";
 
 const SignUpSchema = yup.object().shape({
   userName: yup.string().required('Please enter your user name'),
@@ -20,6 +21,7 @@ const SignUpSchema = yup.object().shape({
 
 export default function SignUpContainer() {
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
+  const [isHandling, setIsHandling] = useState<boolean>(false);
 
   const defaultValues = {
     userName: '',
@@ -39,6 +41,7 @@ export default function SignUpContainer() {
   const { userName, email } = getValues();
 
   const handleSignUp = async (data: SignUpData) => {
+    setIsHandling(true);
     const bodyData = (({ confirmPassword, ...rest }) => rest)(data);
     try {
       await dispatch(authApi.endpoints.signUp.initiate(bodyData)).unwrap();
@@ -47,6 +50,8 @@ export default function SignUpContainer() {
     } catch (error: any) {
       enqueueSnackbar(error.data.message, { variant: 'error' });
       console.error(error);
+    } finally {
+      setIsHandling(false);
     }
   }
 
@@ -59,15 +64,24 @@ export default function SignUpContainer() {
             email={email}
           />
         ) : (
-          <Card title="Sign Up" titleIcon="fa6-solid:user-plus">
-            <FormProvider
-              methods={methods}
-              schema={SignUpSchema}
-              onSubmit={handleSubmit(handleSignUp)}
+          <FormProvider
+            methods={methods}
+            schema={SignUpSchema}
+            onSubmit={handleSubmit(handleSignUp)}
+          >
+            <Card
+              title="Sign Up"
+              titleIcon="fa6-solid:user-plus"
+              actions={() => <SubmitButton
+                fullWidth
+                title='Sign Up'
+                loading={isHandling}
+                loadingIndicator={'Signing Up...'}
+              />}
             >
               <SignUpForm />
-            </FormProvider>
-          </Card>
+            </Card>
+          </FormProvider>
         )}
     </>
   )

@@ -12,6 +12,7 @@ import { dispatch } from "../../../app/store";
 import { authApi } from "../../../app/services/auth/authApi";
 import { enqueueSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 type StepType = 'find-account' | 'verify-otp' | 'change-password';
 
@@ -28,6 +29,8 @@ const ResetPasswordSchema = (activeStep: StepType) => yup.object().shape({
 
 export default function ResetPasswordContainer() {
   const navigate = useNavigate();
+
+  const [isHandling, setIsHandling] = useState<boolean>(false);
 
   const { activeStep, goToNextStep, goToPrevStep } = useStep(STEPS);
 
@@ -49,6 +52,7 @@ export default function ResetPasswordContainer() {
   const { handleSubmit, resetField, getValues } = methods;
 
   const handleFormSubmit = () => {
+    setIsHandling(true);
     switch (activeStep) {
       case 'find-account':
         handleFindAccount();
@@ -71,6 +75,8 @@ export default function ResetPasswordContainer() {
     } catch (error: any) {
       enqueueSnackbar(error.data.message, { variant: 'error' });
       console.error(error);
+    } finally {
+      setIsHandling(false);
     }
   }
 
@@ -82,6 +88,8 @@ export default function ResetPasswordContainer() {
     } catch (error: any) {
       enqueueSnackbar(error.data.message, { variant: 'error' });
       console.error(error);
+    } finally {
+      setIsHandling(false);
     }
   }
 
@@ -94,6 +102,8 @@ export default function ResetPasswordContainer() {
     } catch (error: any) {
       enqueueSnackbar(error.data.message, { variant: 'error' });
       console.error(error);
+    } finally {
+      setIsHandling(false);
     }
   }
 
@@ -104,11 +114,16 @@ export default function ResetPasswordContainer() {
       onSubmit={handleSubmit(handleFormSubmit)}
     >
       <StepCard
-        title={activeStep === 'find-account'
-          ? 'Find your account' : activeStep === 'verify-otp'
-            ? 'Verify Otp' : 'Change password'
-        }
-        titleIcon="fluent:key-reset-20-filled"
+        title="Find your account"
+        titleIcon="mingcute:user-search-fill"
+        {...(activeStep === 'verify-otp' && {
+          title: 'Verify OTP',
+          titleIcon: 'uil:comment-verify'
+        })}
+        {...(activeStep === 'change-password' && {
+          title: 'Change password',
+          titleIcon: 'fluent:key-reset-20-filled'
+        })}
         canBack={activeStep === "verify-otp"}
         onBack={() => {
           resetField('otp');
@@ -116,10 +131,17 @@ export default function ResetPasswordContainer() {
         }}
         actions={() => <SubmitButton
           fullWidth
-          title={activeStep === "find-account"
-            ? 'Find Account' : activeStep === 'verify-otp'
-              ? 'Verify Otp' : 'Change Password'
-          }
+          loading={isHandling}
+          title="Find Account"
+          loadingIndicator={'Finding...'}
+          {...(activeStep === 'verify-otp' && {
+            title: 'Verify OTP',
+            loadingIndicator: 'Verifying...'
+          })}
+          {...(activeStep === 'change-password' && {
+            title: 'Change Password',
+            loadingIndicator: 'Changing...'
+          })}
         />}
       >
         {activeStep === "find-account" && <FindAccountForm />}

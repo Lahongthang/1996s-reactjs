@@ -1,6 +1,5 @@
 import { Stack, Typography } from '@mui/material';
 import { RHFPasswordField, RHFTextField } from '../../../components/RHF';
-import { SubmitButton } from '../../../components/buttons';
 import { useNavigate } from 'react-router';
 import LinkButton from '../../../components/buttons/LinkButton';
 
@@ -35,8 +34,6 @@ const SignUpForm = () => {
         name='confirmPassword'
         label='Confirm password'
       />
-
-      <SubmitButton title='Sign Up' />
     </Stack>
   )
 }
