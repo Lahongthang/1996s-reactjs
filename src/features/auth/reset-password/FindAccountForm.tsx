@@ -7,13 +7,6 @@ const FindAccountForm = () => {
   const navigate = useNavigate();
   return (
     <Stack spacing={2}>
-      <Stack direction={'row'}>
-        <LinkButton
-          title='Sign in'
-          onClick={() => navigate('/sign-in')}
-        />
-      </Stack>
-
       <Stack spacing={1.5}>
         <Typography variant='body2' color={'text.secondary'}>
           Enter the email address you used to register your account below.
@@ -22,6 +15,13 @@ const FindAccountForm = () => {
           name='email'
           label='Email address'
           placeholder='Eg: example@gmail.com'
+        />
+      </Stack>
+
+      <Stack direction={'row'} justifyContent={'flex-end'}>
+        <LinkButton
+          title='Sign in'
+          onClick={() => navigate('/sign-in')}
         />
       </Stack>
     </Stack>

@@ -20,6 +20,7 @@ const SignInForm = () => {
       <RHFTextField
         name="userName"
         label='User name'
+        placeholder="Eg: John Doe"
       />
       <RHFPasswordField
         name="password"

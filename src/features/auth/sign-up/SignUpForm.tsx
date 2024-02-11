@@ -20,10 +20,12 @@ const SignUpForm = () => {
       <RHFTextField
         name='userName'
         label='User name'
+        placeholder='Eg: John Doe'
       />
       <RHFTextField
         name='email'
         label='Email'
+        placeholder='Eg: example@gmail.com'
       />
       <RHFPasswordField
         name='password'
