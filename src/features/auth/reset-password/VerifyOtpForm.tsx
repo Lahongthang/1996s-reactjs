@@ -6,12 +6,13 @@ import LinkButton from '../../../components/buttons/LinkButton';
 import { dispatch } from '../../../app/store';
 import { authApi } from '../../../app/services/auth/authApi';
 import { enqueueSnackbar } from 'notistack';
+import { OTP_EXP_TIME } from '../../../constants/app';
 
 const VerifyOtpForm = () => {
   const { getValues } = useFormContext();
   const email = getValues('email');
 
-  const [expiresTime, setExpiresTime] = useState<number>(10);
+  const [expiresTime, setExpiresTime] = useState<number>(OTP_EXP_TIME);
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -23,7 +24,7 @@ const VerifyOtpForm = () => {
   const handleResendOtp = async () => {
     try {
       await dispatch(authApi.endpoints.sendOtp.initiate({ email })).unwrap();
-      setExpiresTime(10);
+      setExpiresTime(OTP_EXP_TIME);
     } catch (error: any) {
       enqueueSnackbar(error.data.message);
       console.error(error);
